@@ -14,5 +14,12 @@ namespace Acceptor
         private Display display;
         private Selector selector;
 
+
+        public void InsertCoin(Coin c)
+        {
+            
+        }
+
+
     }
 }
