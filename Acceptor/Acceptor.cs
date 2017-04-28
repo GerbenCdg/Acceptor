@@ -25,10 +25,13 @@ namespace Acceptor
                     {
                         p.AddCoin(c);
                     }
+
+                    if(p.isFull()){
+                        box.AddCoin(c);
+                    }
                 }
+
             }
         }
-
-
     }
 }
