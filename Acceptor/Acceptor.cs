@@ -17,7 +17,16 @@ namespace Acceptor
 
         public void InsertCoin(Coin c)
         {
-            
+            if (validator.ValidateCoin(c))
+            {
+                foreach (Pipe p in pipes)
+                {
+                    if (p.coinType == c)
+                    {
+                        p.AddCoin(c);
+                    }
+                }
+            }
         }
 
 

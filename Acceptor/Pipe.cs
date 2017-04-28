@@ -11,7 +11,7 @@ namespace Acceptor
         private static readonly int MAX_CAPACITY = 100;
         public int Capacity { get; private set; }
         public Coin[] Coins = new Coin[MAX_CAPACITY];
-        private Coin coinType { get; set; }
+        internal Coin coinType { get; set; }
 
         public Pipe(Coin c)
         {
