@@ -32,10 +32,13 @@ namespace Acceptor
                             box.AddCoin(c);
                         }
                     }
+
+                    if(p.isFull()){
+                        box.AddCoin(c);
+                    }
                 }
+
             }
         }
-
-
     }
 }
