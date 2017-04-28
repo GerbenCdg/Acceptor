@@ -10,14 +10,8 @@ namespace Acceptor
     {
         internal void DisplayMessage(string msg)
         {
-            Console.WriteLine(msg);
+            Console.WriteLine("Display: " + msg);
         }
-
-        internal void Speak(string msg)
-        {
-            Console.WriteLine("lol");
-        }
-
 
     }
 }
