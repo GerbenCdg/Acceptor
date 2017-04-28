@@ -8,5 +8,11 @@ namespace Acceptor
 {
     class Box
     {
+        public List<Coin> coins { get; set; }
+
+        internal void AddCoin(Coin c)
+        {
+            coins.Add(c);
+        }
     }
 }
