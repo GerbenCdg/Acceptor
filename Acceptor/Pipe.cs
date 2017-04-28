@@ -10,10 +10,28 @@ namespace Acceptor
     {
         private static readonly int MAX_CAPACITY = 100;
         public int Capacity { get; private set; }
+        public Coin[] Coins = new Coin[MAX_CAPACITY];
+        private Coin coinType { get; set; }
+
+        public Pipe(Coin c)
+        {
+            coinType = c;
+        }
 
         internal bool isFull()
         {
             return MAX_CAPACITY == Capacity;
+        }
+
+        public void AddCoin(Coin c)
+        {
+            Capacity++;
+            Coins[Capacity] = c;
+        }
+
+        public override string ToString()
+        {
+            return "Pipe of "+coinType.ToString()+": "+Capacity+" on "+MAX_CAPACITY;
         }
     }
 }
