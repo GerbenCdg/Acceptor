@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Acceptor
 {
-    public class Class1
+    enum Coin
     {
-
     }
 }
