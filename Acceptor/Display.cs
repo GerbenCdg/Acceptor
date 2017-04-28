@@ -8,8 +8,9 @@ namespace Acceptor
 {
     class Display
     {
-        internal void DisplayMessage(string msg){
-Console.WriteLine(msg);
-}
+        internal void DisplayMessage(string msg)
+        {
+            Console.WriteLine(msg);
+        }
     }
 }
