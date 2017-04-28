@@ -8,16 +8,20 @@ namespace Acceptor
 {
     class Box
     {
-        public List<Coin> coins { get; set; }		
+        public List<Coin> coins { get; set; }
 
         internal void AddCoin(Coin c)	
         {		
             coins.Add(c);		
         }
 
-        internal override string ToString()
+        public override string ToString()
         {
-            return "Je suis un box";
+            int totalValue = 0;
+            foreach(Coin c in coins){
+                totalValue += (int) c;
+            }
+            return "The box contains "+coins.Count+" coins, which have a total value of "+ totalValue;
         }
     }
 }
