@@ -8,5 +8,9 @@ namespace Acceptor
 {
     class Selector
     {
+        public void Buy(float price)
+        {
+
+        }
     }
 }

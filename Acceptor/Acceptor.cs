@@ -8,6 +8,11 @@ namespace Acceptor
 {
     public class Acceptor
     {
-        
+        internal Validator validator;
+        private Pipe[] pipes;
+        private Box box;
+        private Display display;
+        private Selector selector;
+
     }
 }
