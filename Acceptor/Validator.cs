@@ -8,7 +8,7 @@ namespace Acceptor
 {
     class Validator
     {
-        bool ValidateCoin(Coin c)
+        internal bool ValidateCoin(Coin c)
         {
             return true;
         } 
