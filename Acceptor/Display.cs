@@ -13,6 +13,11 @@ namespace Acceptor
             Console.WriteLine(msg);
         }
 
+        internal void Speak(string msg)
+        {
+            Console.WriteLine("lol");
+        }
+
 
     }
 }
