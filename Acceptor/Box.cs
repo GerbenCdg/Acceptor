@@ -8,11 +8,16 @@ namespace Acceptor
 {
     class Box
     {
-        public List<Coin> coins { get; set; }
+        public List<Coin> coins { get; set; }		
 
-        internal void AddCoin(Coin c)
+        internal void AddCoin(Coin c)	
+        {		
+            coins.Add(c);		
+        }
+
+        internal override string ToString()
         {
-            coins.Add(c);
+            return "Je suis un box";
         }
     }
 }
