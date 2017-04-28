@@ -23,7 +23,14 @@ namespace Acceptor
                 {
                     if (p.coinType == c)
                     {
-                        p.AddCoin(c);
+                        if (p.isFull())
+                        {
+                            p.AddCoin(c);
+                        }
+                        else
+                        {
+                            box.AddCoin(c);
+                        }
                     }
                 }
             }
