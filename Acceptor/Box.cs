@@ -8,5 +8,9 @@ namespace Acceptor
 {
     class Box
     {
+        internal void AddCoin(Coin c)
+        {
+
+        }
     }
 }
