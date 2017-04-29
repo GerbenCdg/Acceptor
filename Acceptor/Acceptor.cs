@@ -8,11 +8,13 @@ namespace Acceptor
 {
     public class Acceptor
     {
+        internal static readonly float MAX_ACCEPTED_MONEY = 20.00f;
         internal Validator validator;
         private Pipe[] pipes;
         private Box box;
         private Display display;
         private Selector selector;
+        internal float InsertedMoney { get; private set; }
 
         public Acceptor()
         {

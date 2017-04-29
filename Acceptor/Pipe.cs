@@ -31,7 +31,7 @@ namespace Acceptor
 
         public override string ToString()
         {
-            return "Pipe of "+coinType.ToString()+": "+Capacity+" on "+MAX_CAPACITY;
+            return "Pipe of " + coinType.ToString() + ": " + Capacity + " on " + MAX_CAPACITY;
         }
     }
 }

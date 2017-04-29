@@ -10,18 +10,19 @@ namespace Acceptor
     {
         public List<Coin> coins { get; set; }
 
-        internal void AddCoin(Coin c)	
-        {		
-            coins.Add(c);		
+        internal void AddCoin(Coin c)
+        {
+            coins.Add(c);
         }
 
         public override string ToString()
         {
             int totalValue = 0;
-            foreach(Coin c in coins){
-                totalValue += (int) c;
+            foreach (Coin c in coins)
+            {
+                totalValue += (int)c;
             }
-            return "The box contains "+coins.Count+" coins, which have a total value of "+ totalValue;
+            return "The box contains " + coins.Count + " coins, which have a total value of " + totalValue;
         }
     }
 }
