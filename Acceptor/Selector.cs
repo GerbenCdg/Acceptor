@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Acceptor
 {
-    class Selector
+    public  class Selector
     {
         private Acceptor acceptor;
 

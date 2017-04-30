@@ -9,7 +9,6 @@ namespace Acceptor
     public class Acceptor
     {
         internal Validator validator;
-        private Selector selector;
         private Pipe[] pipes;
         private Box box = new Box();
         private Display display = new Display();
@@ -18,7 +17,6 @@ namespace Acceptor
         public Acceptor()
         {
             validator = new Validator(this);
-            selector = new Selector(this);
 
             pipes = new Pipe[Enum.GetValues(typeof(Coin)).Length];
             int i = 0;
