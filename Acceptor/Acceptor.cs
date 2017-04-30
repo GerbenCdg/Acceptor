@@ -45,5 +45,17 @@ namespace Acceptor
                 }
             }
         }
+
+        private void GetState()
+        {
+            StringBuilder str = new StringBuilder().Append("Pipes state :");
+            foreach (Pipe p in pipes){
+                str.Append("\n\t" + p);
+            }
+
+            str.Append("\n Box state :\n"+ box);
+            Console.WriteLine(str);
+        }
+
     }
 }
