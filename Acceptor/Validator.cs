@@ -32,6 +32,7 @@ namespace Acceptor
             if (ValidateCoin(coin))
             {
                 ValidatorCoins.Add(coin);
+                acceptor.CheckInsertedMoney();
             }
             else
             {
