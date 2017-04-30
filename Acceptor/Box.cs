@@ -8,7 +8,8 @@ namespace Acceptor
 {
     class Box
     {
-        public List<Coin> coins { get; set; }
+        private static readonly int MAX_CAPACITY = 500;
+        private List<Coin> coins { get; set; }
 
         internal void AddCoin(Coin c)
         {
@@ -22,7 +23,8 @@ namespace Acceptor
             {
                 totalValue += (int)c;
             }
-            return "The box contains " + coins.Count + " coins, which have a total value of " + totalValue;
+            return "The box contains " + coins.Count + " coins, which have a total value of " + totalValue 
+                + "\nIt's " + (coins.Count() / MAX_CAPACITY)+ "% full.";
         }
     }
 }

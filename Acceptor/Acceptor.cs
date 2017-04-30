@@ -25,6 +25,7 @@ namespace Acceptor
                 i++; 
             }
         }
+
         public void InsertCoin(Coin c)
         {
             if (validator.ValidateCoin(c))
