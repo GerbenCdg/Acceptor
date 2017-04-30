@@ -16,12 +16,12 @@ namespace Main
 
             Selector s = new Selector(a);
 
-            s.SelectProduct(3);
+            s.SelectProduct(4);
 
-            Coin[] coins = { Coin.e2, Coin.e2};
+            Coin[] coins = { Coin.e2, Coin.e2 };
             a.validator.InsertCoins(coins);
 
-            Console.ReadKey(true);
+
         }
     }
 }

@@ -10,11 +10,6 @@ namespace Acceptor
     {
         private List<Coin> coins { get; set; }
 
-        public RejectPipe()
-        {
-            coins = new List<Coin>();
-        }
-
         internal void AddCoins(Coin[] cns)
         {
             coins.AddRange(cns);          

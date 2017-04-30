@@ -13,7 +13,6 @@ namespace Acceptor
         private Box box = new Box();
         private Display display = new Display();
         private RejectPipe rejectPipe = new RejectPipe();
-        private int selectedProductPrice;
 
         public Acceptor()
         {
@@ -28,7 +27,6 @@ namespace Acceptor
             }
         }
 
-        //Method to add coins to the pipes or to the box if the pipe is full.
         internal void InsertCoins(Coin[] coins)
         {
             foreach (Coin coin in coins)
@@ -71,36 +69,19 @@ namespace Acceptor
 
         internal void SelectProduct(int price)
         {
-            selectedProductPrice = price;
-            display.DisplayMessage("Inserted money : " + ((float)validator.getCoinsValue()) / 100 + " | price : " + ((float)selectedProductPrice) / 100);
-        }
-
-        internal void CheckInsertedMoney()
-        {
             int insertedMoney = validator.getCoinsValue();
-            display.DisplayMessage("Inserted money : " + ((float)insertedMoney) / 100 + " | price : " + ((float)selectedProductPrice) / 100);
+            display.DisplayMessage("Inserted money : " + ((float)insertedMoney) / 100 + " | price : " + ((float)price) / 100);
 
-            if (insertedMoney >= selectedProductPrice)
+            if (insertedMoney > price)
             {
                 // vérifier si on est capable de rendre la monnaie
                 display.DisplayMessage("You inserted enough money to buy this item.");
 
-                if(insertedMoney > selectedProductPrice)
+                if (!CanGiveChange(insertedMoney - price))
                 {
-                    if (!CanGiveChange(insertedMoney - selectedProductPrice))
-                    {
-                        display.DisplayMessage("I can't give you the change for this item.");
-                        display.DisplayMessage("You can choose to get refunded or select another product");
-                    } else
-                    {
-                        display.DisplayMessage("I will give you " + (insertedMoney - selectedProductPrice)/100 + " of change.");
-                        GiveChange(insertedMoney - selectedProductPrice);
-                    }
-                } else
-                {
-                    display.DisplayMessage("There's no change to be given. Please take the product. ");
+                    display.DisplayMessage("... But you can only get change for ...");
+                    display.DisplayMessage("You can choose to get refunded or select another product");
                 }
-
             }
             else
             {
@@ -137,7 +118,7 @@ namespace Acceptor
             return GetValueInsidePipes() >= quantityToGive;
         }
 
-        internal void GiveChange(int amountToGive)
+        internal void GetChange(int amountToGive)
         {
             int amountInPipe = 0;
             int amountMissing = amountToGive;
