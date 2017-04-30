@@ -80,5 +80,18 @@ namespace Acceptor
 
         }
 
+
+        public void MaintenanceCheck()
+        {
+            foreach (Pipe p in pipes)
+            {
+                display.DisplayMessage("Pipe " + p + "has been cleared and has given " + p.Clear() + "coins.");
+            }
+
+        }
+
+
+
+
     }
 }

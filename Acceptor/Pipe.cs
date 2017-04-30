@@ -23,6 +23,15 @@ namespace Acceptor
             return MAX_CAPACITY == Capacity;
         }
 
+        internal int Clear()
+        {
+            int NumberOfCoinsCleared = Coins.Length;
+
+            Array.Clear(Coins, 0, Coins.Length);
+
+            return NumberOfCoinsCleared;
+        }
+
         public void AddCoin(Coin c)
         {
             Capacity++;
@@ -33,5 +42,7 @@ namespace Acceptor
         {
             return "Pipe of " + coinType.ToString() + ": " + Capacity + " on " + MAX_CAPACITY;
         }
+
+
     }
 }
