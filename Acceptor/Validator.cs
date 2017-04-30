@@ -11,7 +11,7 @@ namespace Acceptor
         private Acceptor acceptor { get; set; }
         internal List<Coin> ValidatorCoins { get; set; }
 
-        internal static readonly float MAX_ACCEPTED_MONEY = 2000;
+        internal static readonly float MAX_ACCEPTED_MONEY = 2000f;
 
         public Validator(Acceptor a)
         {
@@ -46,6 +46,6 @@ namespace Acceptor
             return true;
         }
 
-        
+
     }
 }

@@ -22,10 +22,11 @@ namespace Acceptor
 
             pipes = new Pipe[Enum.GetValues(typeof(Coin)).Length];
             int i = 0;
-            foreach(Coin c in Enum.GetValues(typeof(Coin))){
+            foreach (Coin c in Enum.GetValues(typeof(Coin)))
+            {
                 pipes[i].coinType = c;
-                i++; 
-            }            
+                i++;
+            }
         }
 
         public void InsertCoins(Coin[] coins)
@@ -55,15 +56,16 @@ namespace Acceptor
             rejectPipe.AddCoin(c);
         }
 
-      
+
         private void GetState()
         {
             StringBuilder str = new StringBuilder().Append("Pipes state :");
-            foreach (Pipe p in pipes){
+            foreach (Pipe p in pipes)
+            {
                 str.Append("\n\t" + p);
             }
 
-            str.Append("\n Box state :\n"+ box);
+            str.Append("\n Box state :\n" + box);
             Console.WriteLine(str);
         }
 
@@ -74,7 +76,7 @@ namespace Acceptor
             // --> veuillez rentrer plus d'argent, appuyer sur rembourser ,choisir un article d'un autre prix
             // l'achat est effectué si Confirm() est appelé.
             InsertCoins(validator.ValidatorCoins.ToArray<Coin>());
-            validator.ValidatorCoins.RemoveRange(0 , validator.ValidatorCoins.Count());
+            validator.ValidatorCoins.RemoveRange(0, validator.ValidatorCoins.Count());
         }
 
         public void GetRefund() // remboursement : l'achat est annulé
@@ -92,6 +94,19 @@ namespace Acceptor
         {
 
         }
+
+
+        public void MaintenanceCheck()
+        {
+            foreach (Pipe p in pipes)
+            {
+                display.DisplayMessage("Pipe " + p + "has been cleared and has given " + p.Clear() + "coins.");
+            }
+
+        }
+
+
+
 
     }
 }
