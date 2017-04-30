@@ -37,30 +37,18 @@ namespace Acceptor
                     {
                         if (p.isFull())
                         {
-                            InsertInPipe(coin);
+                            p.AddCoin(coin);
                         }
                         else
                         {
-                            InsertInBox(coin);
+                            box.AddCoin(coin);
                         }
                     }
                 }
             }
         }
 
-        internal void InsertInBox(Coin c)
-        {
-
-        }
-        internal void InsertInPipe(Coin c)
-        {
-
-        }
-        internal void InsertInRejectPipe(Coin c)
-        {
-
-        }
-     
+      
         private void GetState()
         {
             StringBuilder str = new StringBuilder().Append("Pipes state :");
