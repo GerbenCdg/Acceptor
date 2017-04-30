@@ -10,6 +10,11 @@ namespace Acceptor
     {
         private List<Coin> coins { get; set; }
 
+        internal void AddCoins(Coin[] cns)
+        {
+            coins.AddRange(cns);          
+        }
+
         internal void AddCoin(Coin c)
         {
             coins.Add(c);
@@ -27,7 +32,7 @@ namespace Acceptor
 
         public void WithDrawCoins()
         {
-            coins.RemoveRange(0, coins.Count());
+            coins.Clear();
         }
     }
 }

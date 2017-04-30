@@ -26,7 +26,7 @@ namespace Acceptor
             }
             else
             {
-                acceptor.InsertInRejectPipe(c);
+                acceptor.InsertInRejectPipe(coin);
             }
         }
 

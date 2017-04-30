@@ -17,7 +17,7 @@ namespace Acceptor
 
         public void Buy(float price)
         {
-            acceptor.Buy();
+            acceptor.Buy( (int) price*100);
         }
     }
 }
