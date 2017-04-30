@@ -8,9 +8,16 @@ namespace Acceptor
 {
     class Selector
     {
+        private Acceptor acceptor;
+
+        public Selector(Acceptor a)
+        {
+            acceptor = a;
+        }
+
         public void Buy(float price)
         {
-
+            acceptor.Buy();
         }
     }
 }

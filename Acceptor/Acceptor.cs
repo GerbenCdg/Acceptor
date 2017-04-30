@@ -18,6 +18,8 @@ namespace Acceptor
 
         public Acceptor()
         {
+            selector = new Selector(this);
+
             pipes = new Pipe[Enum.GetValues(typeof(Coin)).Length];
             int i = 0;
             foreach(Coin c in Enum.GetValues(typeof(Coin))){
@@ -56,6 +58,11 @@ namespace Acceptor
 
             str.Append("\n Box state :\n"+ box);
             Console.WriteLine(str);
+        }
+
+        internal void Buy()
+        {
+
         }
 
     }
