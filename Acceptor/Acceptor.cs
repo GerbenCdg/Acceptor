@@ -23,8 +23,30 @@ namespace Acceptor
             int i = 0;
             foreach (Coin c in Enum.GetValues(typeof(Coin)))
             {
-                pipes[i] = new Pipe(c);
-                i++;
+                if (c == Coin.e2)
+                {
+                    pipes[0] = new Pipe(c);
+                }
+                if (c == Coin.e1)
+                {
+                    pipes[1] = new Pipe(c);
+                }
+                if (c == Coin.c50)
+                {
+                    pipes[2] = new Pipe(c);
+                }
+                if (c == Coin.c20)
+                {
+                    pipes[3] = new Pipe(c);
+                }
+                if (c == Coin.c10)
+                {
+                    pipes[4] = new Pipe(c);
+                }
+                if (c == Coin.c5)
+                {
+                    pipes[5] = new Pipe(c);
+                }
             }
         }
 
@@ -85,18 +107,20 @@ namespace Acceptor
                 // vérifier si on est capable de rendre la monnaie
                 display.DisplayMessage("You inserted enough money to buy this item.");
 
-                if(insertedMoney > selectedProductPrice)
+                if (insertedMoney > selectedProductPrice)
                 {
                     if (!CanGiveChange(insertedMoney - selectedProductPrice))
                     {
                         display.DisplayMessage("I can't give you the change for this item.");
                         display.DisplayMessage("You can choose to get refunded or select another product");
-                    } else
+                    }
+                    else
                     {
-                        display.DisplayMessage("I will give you " + (insertedMoney - selectedProductPrice)/100 + " of change.");
+                        display.DisplayMessage("I will give you " + (insertedMoney - selectedProductPrice) / 100 + " of change.");
                         GiveChange(insertedMoney - selectedProductPrice);
                     }
-                } else
+                }
+                else
                 {
                     display.DisplayMessage("There's no change to be given. Please take the product. ");
                 }

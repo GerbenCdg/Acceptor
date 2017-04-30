@@ -44,7 +44,7 @@ namespace Acceptor
         {
             return IsValid(c) && (int)c < MAX_ACCEPTED_MONEY;
         }
-
+        
         internal int getCoinsValue()
         {
             int totalValue = 0;
