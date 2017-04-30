@@ -15,6 +15,10 @@ namespace Acceptor
 
         public Pipe(Coin c)
         {
+            for (int i =  0; i < 50; i++)
+            {
+                AddCoin(coinType);
+            }
             coinType = c;
         }
 
