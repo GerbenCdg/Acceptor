@@ -22,7 +22,7 @@ namespace Acceptor
             int i = 0;
             foreach (Coin c in Enum.GetValues(typeof(Coin)))
             {
-                pipes[i].coinType = c;
+                pipes[i] = new Pipe(c);
                 i++;
             }
         }
@@ -70,7 +70,7 @@ namespace Acceptor
         internal void SelectProduct(int price)
         {
             int insertedMoney = validator.getCoinsValue();
-            display.DisplayMessage("Inserted money : " + ((float)price) / 100 + " | price : " + ((float)price) / 100);
+            display.DisplayMessage("Inserted money : " + ((float)insertedMoney) / 100 + " | price : " + ((float)price) / 100);
 
             if (insertedMoney > price)
             {
@@ -82,10 +82,10 @@ namespace Acceptor
                     display.DisplayMessage("... But you can only get change for ...");
                     display.DisplayMessage("You can choose to get refunded or select another product");
                 }
-                else
-                {
-                    display.DisplayMessage("Please insert more money");
-                }
+            }
+            else
+            {
+                display.DisplayMessage("Please insert more money");
             }
         }
 

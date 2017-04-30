@@ -16,6 +16,7 @@ namespace Acceptor
         public Validator(Acceptor a)
         {
             acceptor = a;
+            ValidatorCoins = new List<Coin>();
         }
 
         public void InsertCoins(Coin[] coins)
