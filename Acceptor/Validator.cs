@@ -37,7 +37,11 @@ namespace Acceptor
 
         internal int getCoinsValue()
         {
-            return 
+            int totalValue = 0;
+            foreach (Coin c in ValidatorCoins){
+                totalValue += (int)c;
+            }
+            return totalValue;
         }
 
         private bool IsValid(Coin c)

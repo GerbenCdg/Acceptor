@@ -15,9 +15,13 @@ namespace Acceptor
             acceptor = a;
         }
 
-        public void Buy(float price)
+        public void SelectProduct(float price)
         {
-            acceptor.Buy( (int) price*100);
+            acceptor.SelectProduct( (int) price*100);
+        }
+
+        public void Buy() {
+            acceptor.Confirm();
         }
     }
 }

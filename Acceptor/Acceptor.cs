@@ -69,22 +69,35 @@ namespace Acceptor
             Console.WriteLine(str);
         }
 
-        internal void Buy(int price)
+        internal void SelectProduct(int price)
         {
-            //TODO price
-            // afficher si on est capable de rendre la monnaie
-            // --> veuillez rentrer plus d'argent, appuyer sur rembourser ,choisir un article d'un autre prix
-            // l'achat est effectué si Confirm() est appelé.
-            
+            int insertedMoney = validator.getCoinsValue();
+            display.DisplayMessage("Inserted money : " + ((float)price) / 100 + " | price : " + ((float)price) / 100);
+
+            if (insertedMoney > price)
+            {
+                // vérifier si on est capable de rendre la monnaie
+                display.DisplayMessage("You inserted enough money to buy this item.");
+                
+                if ( !canGetRefunded())
+                {
+                    display.DisplayMessage("... But you can only get change for ...");
+                    display.DisplayMessage("You can choose to get refunded or, select another product");                
+                }
+            }
+            else
+            {  
+                display.DisplayMessage("Please insert more money");
+            }
         }
 
         public void GetRefund() // remboursement : l'achat est annulé
         {
             rejectPipe.AddCoins(validator.ValidatorCoins.ToArray<Coin>());
-            validator.ValidatorCoins.Clear();            
+            validator.ValidatorCoins.Clear();
         }
 
-        public void Confirm()
+        public void Confirm() // effectue l'achat 
         {
             InsertCoins(validator.ValidatorCoins.ToArray<Coin>());
             validator.ValidatorCoins.Clear();
