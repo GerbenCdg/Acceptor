@@ -75,8 +75,7 @@ namespace Acceptor
             // afficher si on est capable de rendre la monnaie
             // --> veuillez rentrer plus d'argent, appuyer sur rembourser ,choisir un article d'un autre prix
             // l'achat est effectué si Confirm() est appelé.
-            InsertCoins(validator.ValidatorCoins.ToArray<Coin>());
-            validator.ValidatorCoins.RemoveRange(0, validator.ValidatorCoins.Count());
+            
         }
 
         public void GetRefund() // remboursement : l'achat est annulé
@@ -87,7 +86,8 @@ namespace Acceptor
 
         public void Confirm()
         {
-
+            InsertCoins(validator.ValidatorCoins.ToArray<Coin>());
+            validator.ValidatorCoins.Clear();
         }
 
         private void getChange()
