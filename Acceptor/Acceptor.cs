@@ -8,16 +8,15 @@ namespace Acceptor
 {
     public class Acceptor
     {
-        internal static readonly float MAX_ACCEPTED_MONEY = 20.00f;
         internal Validator validator;
-        private Pipe[] pipes;
-        private Box box;
-        private Display display;
         private Selector selector;
-        internal float InsertedMoney { get; private set; }
+        private Pipe[] pipes;
+        private Box box = new Box();
+        private Display display = new Display();
 
         public Acceptor()
         {
+            validator = new Validator(this);
             selector = new Selector(this);
 
             pipes = new Pipe[Enum.GetValues(typeof(Coin)).Length];
@@ -25,30 +24,43 @@ namespace Acceptor
             foreach(Coin c in Enum.GetValues(typeof(Coin))){
                 pipes[i].coinType = c;
                 i++; 
-            }
+            }            
         }
 
-        public void InsertCoin(Coin c)
+        public void InsertCoins(Coin[] coins)
         {
-            if (validator.ValidateCoin(c))
+            foreach (Coin coin in coins)
             {
                 foreach (Pipe p in pipes)
                 {
-                    if (p.coinType == c)
+                    if (p.coinType == coin)
                     {
                         if (p.isFull())
                         {
-                            p.AddCoin(c);
+                            InsertInPipe(coin);
                         }
                         else
                         {
-                            box.AddCoin(c);
+                            InsertInBox(coin);
                         }
                     }
                 }
             }
         }
 
+        internal void InsertInBox(Coin c)
+        {
+
+        }
+        internal void InsertInPipe(Coin c)
+        {
+
+        }
+        internal void InsertInRejectPipe(Coin c)
+        {
+
+        }
+     
         private void GetState()
         {
             StringBuilder str = new StringBuilder().Append("Pipes state :");
@@ -61,6 +73,12 @@ namespace Acceptor
         }
 
         internal void Buy()
+        {
+            InsertCoins(validator.ValidatorCoins.ToArray<Coin>());
+            validator.ValidatorCoins.RemoveRange(0 , validator.ValidatorCoins.Count());
+        }
+
+        public void GetRefund()
         {
 
         }

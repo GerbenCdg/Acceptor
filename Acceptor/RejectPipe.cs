@@ -15,7 +15,7 @@ namespace Acceptor
             coins.Add(c);
         }
 
-        public void getState()
+        public void GetState()
         {
             Console.WriteLine("Coins to withdraw : ");
 
@@ -23,6 +23,11 @@ namespace Acceptor
             {
                 Console.WriteLine(c);
             }
+        }
+
+        public void WithDrawCoins()
+        {
+            coins.RemoveRange(0, coins.Count());
         }
     }
 }

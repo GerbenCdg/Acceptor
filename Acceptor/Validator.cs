@@ -8,16 +8,33 @@ namespace Acceptor
 {
     class Validator
     {
-        private Acceptor a { get; set; }
+        private Acceptor acceptor { get; set; }
+        internal List<Coin> ValidatorCoins { get; set; }
+
+        internal static readonly float MAX_ACCEPTED_MONEY = 2000;
 
         public Validator(Acceptor a)
         {
-            this.a = a;
+            acceptor = a;
         }
+
+        public void InsertCoin(Coin coin)
+        {
+            if (ValidateCoin(coin))
+            {
+                ValidatorCoins.Add(coin);
+            }
+            else
+            {
+                acceptor.InsertInRejectPipe(c);
+            }
+        }
+
         internal bool ValidateCoin(Coin c)
         {
-            return IsValid(c) && a.InsertedMoney < Acceptor.MAX_ACCEPTED_MONEY;
+            return IsValid(c) && (int)c < MAX_ACCEPTED_MONEY;
         }
+
 
         private bool IsValid(Coin c)
         {
