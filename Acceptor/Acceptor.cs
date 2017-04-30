@@ -13,6 +13,7 @@ namespace Acceptor
         private Pipe[] pipes;
         private Box box = new Box();
         private Display display = new Display();
+        private RejectPipe rejectPipe = new RejectPipe();
 
         public Acceptor()
         {
@@ -46,6 +47,12 @@ namespace Acceptor
                     }
                 }
             }
+        }
+
+
+        internal void InsertInRejectPipe(Coin c)
+        {
+            rejectPipe.AddCoin(c);
         }
 
       
