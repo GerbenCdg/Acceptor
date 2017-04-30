@@ -22,10 +22,11 @@ namespace Acceptor
 
             pipes = new Pipe[Enum.GetValues(typeof(Coin)).Length];
             int i = 0;
-            foreach(Coin c in Enum.GetValues(typeof(Coin))){
+            foreach (Coin c in Enum.GetValues(typeof(Coin)))
+            {
                 pipes[i].coinType = c;
-                i++; 
-            }            
+                i++;
+            }
         }
 
         public void InsertCoins(Coin[] coins)
@@ -55,22 +56,23 @@ namespace Acceptor
             rejectPipe.AddCoin(c);
         }
 
-      
+
         private void GetState()
         {
             StringBuilder str = new StringBuilder().Append("Pipes state :");
-            foreach (Pipe p in pipes){
+            foreach (Pipe p in pipes)
+            {
                 str.Append("\n\t" + p);
             }
 
-            str.Append("\n Box state :\n"+ box);
+            str.Append("\n Box state :\n" + box);
             Console.WriteLine(str);
         }
 
         internal void Buy()
         {
             InsertCoins(validator.ValidatorCoins.ToArray<Coin>());
-            validator.ValidatorCoins.RemoveRange(0 , validator.ValidatorCoins.Count());
+            validator.ValidatorCoins.RemoveRange(0, validator.ValidatorCoins.Count());
         }
 
         public void GetRefund()
