@@ -18,10 +18,8 @@ namespace Main
 
             s.Buy(350);
 
-
             Coin[] coins = { (Coin)200, (Coin)100, (Coin)50};
-            a.InsertCoins(coins);
-
+            a.validator.InsertCoins(coins);
             
 
         }

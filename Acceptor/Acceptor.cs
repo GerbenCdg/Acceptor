@@ -8,7 +8,7 @@ namespace Acceptor
 {
     public class Acceptor
     {
-        internal Validator validator;
+        public Validator validator { get; private set; }
         private Pipe[] pipes;
         private Box box = new Box();
         private Display display = new Display();
@@ -27,7 +27,7 @@ namespace Acceptor
             }
         }
 
-        public void InsertCoins(Coin[] coins)
+        internal void InsertCoins(Coin[] coins)
         {
             foreach (Coin coin in coins)
             {
@@ -76,16 +76,83 @@ namespace Acceptor
             {
                 // vérifier si on est capable de rendre la monnaie
                 display.DisplayMessage("You inserted enough money to buy this item.");
-                
-                if ( !canGetRefunded())
+
+                if (!canGetRefunded(insertedMoney - price))
                 {
                     display.DisplayMessage("... But you can only get change for ...");
-                    display.DisplayMessage("You can choose to get refunded or, select another product");                
+                    display.DisplayMessage("You can choose to get refunded or, select another product");
                 }
             }
             else
-            {  
+            {
                 display.DisplayMessage("Please insert more money");
+            }
+        }
+
+        private bool canGetRefunded(int amountToRefund)
+        {
+            int coinQuantity = 0;
+
+            List<Coin> refundCoins = new List<Coin>();
+
+            if (coinType == (int)Coin.e2)
+            {
+                coinQuantity = amountToRefund / 200;
+                canGetRefunded(Coin.e2, coinQuantity);
+            }
+            if (coinType == (int)Coin.e1 || coinQuantity == 0)
+            {
+                coinQuantity = amountToRefund / 100;
+
+            }
+            if (coinType == (int)Coin.c50 || coinQuantity == 0)
+            {
+                coinQuantity = amountToRefund / 50;
+
+            }
+            if (coinType == (int)Coin.c20 || coinQuantity == 0)
+            {
+                coinQuantity = amountToRefund / 20;
+
+            }
+            if (coinType == (int)Coin.c10 || coinQuantity == 0)
+            {
+                coinQuantity = amountToRefund / 10;
+
+            }
+            if (coinType == (int)Coin.c5 || coinQuantity == 0)
+            {
+                coinQuantity = amountToRefund / 5;
+
+            }
+
+
+        }
+
+        private List<Coin> canGetRefunded(Coin cointype, int quantity)
+        {
+            if (quantity != 0)
+            {
+                foreach (Pipe p in pipes)
+                {
+                    if ((int)p.coinType == 200)
+                    {
+                        if (p.Coins.Count() > quantity)
+                        {
+                            List<Coin> coinsList = new List<Coin>();
+                            for(int i = 0; i < p.Coins.Count(); i ++)
+                            {
+                                coinsList.Add(cointype);
+                            }
+                            return new List<Coin>(){cointype, cointype};
+                        }
+                        else
+                        {
+                            canGetRefunded(200, 1);
+                        }
+                    }
+                }
+
             }
         }
 
@@ -93,6 +160,8 @@ namespace Acceptor
         {
             rejectPipe.AddCoins(validator.ValidatorCoins.ToArray<Coin>());
             validator.ValidatorCoins.Clear();
+
+            display.DisplayMessage("Thank you, Enjoy !");
         }
 
         public void Confirm() // effectue l'achat 

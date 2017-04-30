@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Acceptor
 {
-    class Validator
+    public class Validator
     {
         private Acceptor acceptor { get; set; }
         internal List<Coin> ValidatorCoins { get; set; }
@@ -16,6 +16,14 @@ namespace Acceptor
         public Validator(Acceptor a)
         {
             acceptor = a;
+        }
+
+        public void InsertCoins(Coin[] coins)
+        {
+            foreach(Coin coin in coins)
+            {
+                InsertCoin(coin);
+            }
         }
 
         public void InsertCoin(Coin coin)
