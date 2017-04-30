@@ -9,7 +9,7 @@ namespace Acceptor
     class Pipe
     {
         private static readonly int MAX_CAPACITY = 100;
-        public int Capacity { get; private set; }
+        public int NumberOfCoins { get; private set; }
         public Coin[] Coins = new Coin[MAX_CAPACITY];
         internal Coin coinType { get; set; }
 
@@ -20,7 +20,7 @@ namespace Acceptor
 
         internal bool isFull()
         {
-            return MAX_CAPACITY == Capacity;
+            return MAX_CAPACITY == NumberOfCoins;
         }
 
         internal int Clear()
@@ -34,13 +34,25 @@ namespace Acceptor
 
         public void AddCoin(Coin c)
         {
-            Capacity++;
-            Coins[Capacity] = c;
+            NumberOfCoins++;
+            Coins[NumberOfCoins] = c;
+        }
+
+        internal Coin[] GiveCoins(int quantityOfCoinsToGive)
+        {
+            NumberOfCoins -= quantityOfCoinsToGive;
+            Coin[] ReturnedCoins = new Coin[quantityOfCoinsToGive];
+            for(int i=0; i < ReturnedCoins.Length; i++)
+            {
+                ReturnedCoins[i] = this.coinType;
+            }
+
+            return ReturnedCoins;
         }
 
         public override string ToString()
         {
-            return "Pipe of " + coinType.ToString() + ": " + Capacity + " on " + MAX_CAPACITY;
+            return "Pipe of " + coinType.ToString() + ": " + NumberOfCoins + " on " + MAX_CAPACITY;
         }
 
 

@@ -77,84 +77,18 @@ namespace Acceptor
                 // vérifier si on est capable de rendre la monnaie
                 display.DisplayMessage("You inserted enough money to buy this item.");
 
-                if (!canGetRefunded(insertedMoney - price))
+                if (!CanGiveChange(insertedMoney - price))
                 {
                     display.DisplayMessage("... But you can only get change for ...");
-                    display.DisplayMessage("You can choose to get refunded or, select another product");
+                    display.DisplayMessage("You can choose to get refunded or select another product");
                 }
-            }
-            else
-            {
-                display.DisplayMessage("Please insert more money");
-            }
-        }
-
-        private bool canGetRefunded(int amountToRefund)
-        {
-            int coinQuantity = 0;
-
-            List<Coin> refundCoins = new List<Coin>();
-
-            if (coinType == (int)Coin.e2)
-            {
-                coinQuantity = amountToRefund / 200;
-                canGetRefunded(Coin.e2, coinQuantity);
-            }
-            if (coinType == (int)Coin.e1 || coinQuantity == 0)
-            {
-                coinQuantity = amountToRefund / 100;
-
-            }
-            if (coinType == (int)Coin.c50 || coinQuantity == 0)
-            {
-                coinQuantity = amountToRefund / 50;
-
-            }
-            if (coinType == (int)Coin.c20 || coinQuantity == 0)
-            {
-                coinQuantity = amountToRefund / 20;
-
-            }
-            if (coinType == (int)Coin.c10 || coinQuantity == 0)
-            {
-                coinQuantity = amountToRefund / 10;
-
-            }
-            if (coinType == (int)Coin.c5 || coinQuantity == 0)
-            {
-                coinQuantity = amountToRefund / 5;
-
-            }
-
-
-        }
-
-        private List<Coin> canGetRefunded(Coin cointype, int quantity)
-        {
-            if (quantity != 0)
-            {
-                foreach (Pipe p in pipes)
+                else
                 {
-                    if ((int)p.coinType == 200)
-                    {
-                        if (p.Coins.Count() > quantity)
-                        {
-                            List<Coin> coinsList = new List<Coin>();
-                            for(int i = 0; i < p.Coins.Count(); i ++)
-                            {
-                                coinsList.Add(cointype);
-                            }
-                            return new List<Coin>(){cointype, cointype};
-                        }
-                        else
-                        {
-                            canGetRefunded(200, 1);
-                        }
-                    }
+                    display.DisplayMessage("Please insert more money");
                 }
-
             }
         }
+
 
         public void GetRefund() // remboursement : l'achat est annulé
         {
@@ -170,12 +104,6 @@ namespace Acceptor
             validator.ValidatorCoins.Clear();
         }
 
-        private void getChange()
-        {
-
-        }
-
-
         public void MaintenanceCheck()
         {
             foreach (Pipe p in pipes)
@@ -185,8 +113,113 @@ namespace Acceptor
 
         }
 
+        private bool CanGiveChange(int quantityToGive)
+        {
+            return GetValueInsidePipes() >= quantityToGive;
+        }
+
+        internal void GetChange(int amountToGive)
+        {
+            int amountInPipe = 0;
+            int amountMissing = amountToGive;
+            int numberOfCoinsToGive = 0;
+
+            if (CanGiveChange(amountToGive))
+            {
+                foreach (Pipe p in pipes)
+                {
+                    if (p.coinType == Coin.e2)
+                    {
+                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+
+                        if (amountInPipe >= amountToGive)
+                        {
+                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
+                            rejectPipe.GetState();
+                            amountMissing = amountToGive % (int)p.coinType;
+                        }
+                    }
+
+                    if (p.coinType == Coin.e1 && amountMissing > 0)
+                    {
+                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+
+                        if (amountInPipe >= amountToGive)
+                        {
+                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
+                            rejectPipe.GetState();
+                            amountMissing = amountToGive % (int)p.coinType;
+                        }
+                    }
+
+                    if (p.coinType == Coin.c50 && amountMissing > 0)
+                    {
+                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+
+                        if (amountInPipe >= amountToGive)
+                        {
+                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
+                            rejectPipe.GetState();
+                            amountMissing = amountToGive % (int)p.coinType;
+                        }
+                    }
 
 
+                    if (p.coinType == Coin.c20 && amountMissing > 0)
+                    {
+                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+
+                        if (amountInPipe >= amountToGive)
+                        {
+                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
+                            rejectPipe.GetState();
+                            amountMissing = amountToGive % (int)p.coinType;
+                        }
+                    }
+
+                    if (p.coinType == Coin.c10 && amountMissing > 0)
+                    {
+                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+
+                        if (amountInPipe >= amountToGive)
+                        {
+                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
+                            rejectPipe.GetState();
+                            amountMissing = amountToGive % (int)p.coinType;
+                        }
+                    }
+
+                    if (p.coinType == Coin.c5 && amountMissing > 0)
+                    {
+                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+
+                        if (amountInPipe >= amountToGive)
+                        {
+                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
+                            rejectPipe.GetState();
+                            amountMissing = amountToGive % (int)p.coinType;
+                        }
+                    }
+                }
+            }
+        }
+
+        private int GetValueInsidePipes()
+        {
+            int ValueInsideAllPipes = 0;
+            foreach (Pipe p in pipes)
+            {
+                ValueInsideAllPipes += p.NumberOfCoins * (int)p.coinType;
+            }
+
+            return ValueInsideAllPipes;
+        }
 
     }
 }
