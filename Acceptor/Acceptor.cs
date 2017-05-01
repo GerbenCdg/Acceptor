@@ -158,7 +158,7 @@ namespace Acceptor
             display.DisplayMessage("Thank you! Good Bye! ");
         }
 
-        public void Confirm() // effectue l'achat 
+        internal void Confirm() // effectue l'achat 
         {
             InsertCoins(validator.ValidatorCoins.ToArray<Coin>());
             validator.ValidatorCoins.Clear();
