@@ -14,10 +14,16 @@ namespace Main
 
             Acceptor.Acceptor a = new Acceptor.Acceptor();
 
+            a.GetState();
+
             Selector s = new Selector(a);
-            s.SelectProduct(1.99f);
+            s.SelectProduct(0.35f);
 
             a.validator.InsertCoins(Coin.e2);
+
+
+            a.GetState();
+
 
             Console.ReadKey(true);
         }

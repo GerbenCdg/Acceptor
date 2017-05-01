@@ -273,6 +273,12 @@ namespace Acceptor
                             amountToGive = amountToGive % (int)p.CoinType;
                         }
                     }
+
+                    if (amountToGive < 5)
+                    {
+                        display.DisplayMessage("We are sorry but we don't give back less than 5 cents. You were robbed " + amountToGive + " cents.");
+                        amountToGive = 0;
+                    }
                 }
             }
 
