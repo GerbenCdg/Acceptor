@@ -27,11 +27,14 @@ namespace Acceptor
 
         public void GetState()
         {
-            Console.WriteLine("Coins to withdraw : ");
-
-            foreach (Coin c in coins)
+            if (coins.Any())
             {
-                Console.WriteLine(c);
+                Console.WriteLine("Coins to withdraw : ");
+
+                foreach (Coin c in coins)
+                {
+                    Console.WriteLine(c);
+                }
             }
         }
 

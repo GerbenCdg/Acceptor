@@ -251,6 +251,11 @@ namespace Acceptor
                     }
                 }
             }
+
+            if(amountMissing == 0)
+            {
+                display.DisplayMessage("You can now take your change. Please, come back soon!");
+            }
         }
 
         private int GetValueInsidePipes()
