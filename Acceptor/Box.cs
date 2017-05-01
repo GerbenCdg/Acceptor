@@ -35,8 +35,8 @@ namespace Acceptor
             {
                 Console.Write(c + " ");
             }
-            return "The box contains " + coins.Count + " coins, which have a total value of " + totalValue
-                + "\nIt's " + ((float)coins.Count()) / ((float)MAX_CAPACITY) + "% full.\n";
+            return "The box contains " + coins.Count + " coins, which have a total value of " + ((float) totalValue / 100)
+                + "e.\nIt's " + ((float)coins.Count()) / ((float)MAX_CAPACITY) + "% full.\n";
         }
     }
 }

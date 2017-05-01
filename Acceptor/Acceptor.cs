@@ -105,35 +105,43 @@ namespace Acceptor
         internal void CheckInsertedMoney()
         {
             int insertedMoney = validator.getCoinsValue();
-            display.DisplayMessage("Inserted money : " + ((float)insertedMoney) / 100 + " | price : " + ((float)selectedProductPrice) / 100);
-
-            if (insertedMoney >= selectedProductPrice)
+            
+            if (selectedProductPrice != 0)
             {
-                // vérifier si on est capable de rendre la monnaie
-                display.DisplayMessage("You inserted enough money to buy this item.");
+                display.DisplayMessage("Inserted money : " + ((float)insertedMoney) / 100 + " | price : " + ((float)selectedProductPrice) / 100);
 
-                if (insertedMoney > selectedProductPrice)
+                if (insertedMoney >= selectedProductPrice)
                 {
-                    if (!CanGiveChange(insertedMoney - selectedProductPrice))
+                    // vérifier si on est capable de rendre la monnaie
+                    display.DisplayMessage("You inserted enough money to buy this item.");
+
+                    if (insertedMoney > selectedProductPrice)
                     {
-                        display.DisplayMessage("I can't give you the change for this item.");
-                        display.DisplayMessage("You can choose to get refunded or select another product");
+                        if (!CanGiveChange(insertedMoney - selectedProductPrice))
+                        {
+                            display.DisplayMessage("I can't give you the change for this item.");
+                            display.DisplayMessage("You can choose to get refunded or select another product");
+                        }
+                        else
+                        {
+                            display.DisplayMessage("I will give you " + Display.DisplayAsPrice(insertedMoney - selectedProductPrice) + " of change.");
+                            GiveChange(insertedMoney - selectedProductPrice);
+                        }
                     }
                     else
                     {
-                        display.DisplayMessage("I will give you " + Display.DisplayAsPrice(insertedMoney - selectedProductPrice) + " of change.");
-                        GiveChange(insertedMoney - selectedProductPrice);
+                        display.DisplayMessage("There's no change to be given. Please take the product. ");
                     }
+
                 }
                 else
                 {
-                    display.DisplayMessage("There's no change to be given. Please take the product. ");
-                }
-
+                    display.DisplayMessage("Please insert more money");
+                } 
             }
             else
             {
-                display.DisplayMessage("Please insert more money");
+                display.DisplayMessage("Inserted money : " + ((float)insertedMoney) / 100);
             }
         }
 
