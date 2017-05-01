@@ -13,7 +13,7 @@ namespace Acceptor
             Console.WriteLine("Display: " + msg);
         }
 
-        internal string DisplayAsPrice(int priceInCentims)
+        internal static string DisplayAsPrice(int priceInCentims)
         {
             return string.Format("{0:N2}", (float)priceInCentims / 100.0f);
         }

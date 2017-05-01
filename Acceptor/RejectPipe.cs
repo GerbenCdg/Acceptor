@@ -17,7 +17,7 @@ namespace Acceptor
 
         internal void AddCoins(Coin[] cns)
         {
-            coins.AddRange(cns);          
+            coins.AddRange(cns);
         }
 
         internal void AddCoin(Coin c)
@@ -27,7 +27,7 @@ namespace Acceptor
 
         public void GetState()
         {
-            if (coins.Any())
+            if (HasCoins())
             {
                 Console.WriteLine("Coins to withdraw : ");
 
@@ -38,9 +38,18 @@ namespace Acceptor
             }
         }
 
+        //method called when the user has withdrawn the coins
         public void WithDrawCoins()
         {
-            coins.Clear();
+            if (HasCoins())
+            {
+                coins.Clear();
+            }
+        }
+
+        internal bool HasCoins()
+        {
+            return coins.Any();
         }
     }
 }

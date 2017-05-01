@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,20 +10,24 @@ namespace Acceptor
     class Pipe
     {
         private static readonly int MAX_CAPACITY = 100;
-        public int NumberOfCoins { get; private set; }
+
+        public int NumberOfCoins { get { return mNumberOfCoins;  } private set { mNumberOfCoins = value; } }
+        private int mNumberOfCoins;
+
         public Coin[] Coins = new Coin[MAX_CAPACITY];
-        internal Coin coinType { get; set; }
+        internal Coin CoinType { get; set; }
 
         public Pipe(Coin c)
         {
-            for (int i =  0; i < 50; i++)
+            CoinType = c;
+            for (int i = 0; i < 99; i++)
             {
-                AddCoin(coinType);
+                AddCoin(CoinType);
             }
-            coinType = c;
+            Debug.WriteLine($"The pipe {this} has been constructed.");
         }
 
-        internal bool isFull()
+        internal bool IsFull()
         {
             return MAX_CAPACITY == NumberOfCoins;
         }
@@ -32,14 +37,15 @@ namespace Acceptor
             int NumberOfCoinsCleared = Coins.Length;
 
             Array.Clear(Coins, 0, Coins.Length);
-
+            Debug.WriteLine($"The pipe {this} has been cleared of {NumberOfCoinsCleared} coins");
             return NumberOfCoinsCleared;
         }
 
         public void AddCoin(Coin c)
         {
-            NumberOfCoins++;
             Coins[NumberOfCoins] = c;
+            NumberOfCoins++;
+            Debug.WriteLine($"The coin {c.ToString()} has been added to the pipe {this}");
         }
 
         internal Coin[] GiveCoins(int quantityOfCoinsToGive)
@@ -48,15 +54,15 @@ namespace Acceptor
             Coin[] ReturnedCoins = new Coin[quantityOfCoinsToGive];
             for(int i=0; i < ReturnedCoins.Length; i++)
             {
-                ReturnedCoins[i] = this.coinType;
+                ReturnedCoins[i] = this.CoinType;
             }
-
+            Debug.WriteLine($"The pipe {this} has given {ReturnedCoins.Length} coins");
             return ReturnedCoins;
         }
 
         public override string ToString()
         {
-            return "Pipe of " + coinType.ToString() + ": " + NumberOfCoins + " on " + MAX_CAPACITY;
+            return "Pipe of " + CoinType.ToString() + ": " + NumberOfCoins + " / " + MAX_CAPACITY;
         }
 
 

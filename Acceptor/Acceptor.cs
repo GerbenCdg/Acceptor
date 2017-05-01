@@ -57,9 +57,9 @@ namespace Acceptor
             {
                 foreach (Pipe p in pipes)
                 {
-                    if (p.coinType == coin)
+                    if (p.CoinType == coin)
                     {
-                        if (p.isFull())
+                        if (!p.IsFull())
                         {
                             p.AddCoin(coin);
                         }
@@ -78,18 +78,20 @@ namespace Acceptor
             display.DisplayMessage("The coin " + c + " was rejected.");
             rejectPipe.AddCoin(c);
             rejectPipe.GetState();
+            rejectPipe.WithDrawCoins();
         }
 
 
-        private void GetState()
+        public void GetState()
         {
+            Console.WriteLine("\n -- ACCEPTOR'S STATE -- \n");
             StringBuilder str = new StringBuilder().Append("Pipes state :");
             foreach (Pipe p in pipes)
             {
                 str.Append("\n\t" + p);
             }
 
-            str.Append("\n Box state :\n" + box);
+            str.Append("\nBox state :\n" + box);
             Console.WriteLine(str);
         }
 
@@ -119,7 +121,7 @@ namespace Acceptor
                     }
                     else
                     {
-                        display.DisplayMessage("I will give you " + display.DisplayAsPrice(insertedMoney - selectedProductPrice) + " of change.");
+                        display.DisplayMessage("I will give you " + Display.DisplayAsPrice(insertedMoney - selectedProductPrice) + " of change.");
                         GiveChange(insertedMoney - selectedProductPrice);
                     }
                 }
@@ -148,6 +150,7 @@ namespace Acceptor
         {
             InsertCoins(validator.ValidatorCoins.ToArray<Coin>());
             validator.ValidatorCoins.Clear();
+            rejectPipe.WithDrawCoins();
         }
 
         public void MaintenanceCheck()
@@ -180,82 +183,82 @@ namespace Acceptor
                         break;
                     }
 
-                    if (p.coinType == Coin.e2)
+                    if (p.CoinType == Coin.e2)
                     {
-                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+                        amountInPipe = p.NumberOfCoins * (int)p.CoinType;
 
                         if (amountInPipe >= amountToGive)
                         {
-                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            numberOfCoinsToGive = amountToGive / (int)p.CoinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountToGive = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.CoinType;
                         }
                     }
 
-                    if (p.coinType == Coin.e1 && amountToGive > 0)
+                    if (p.CoinType == Coin.e1 && amountToGive > 0)
                     {
-                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+                        amountInPipe = p.NumberOfCoins * (int)p.CoinType;
 
                         if (amountInPipe >= amountToGive)
                         {
-                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            numberOfCoinsToGive = amountToGive / (int)p.CoinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountToGive = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.CoinType;
                         }
                     }
 
-                    if (p.coinType == Coin.c50 && amountToGive > 0)
+                    if (p.CoinType == Coin.c50 && amountToGive > 0)
                     {
-                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+                        amountInPipe = p.NumberOfCoins * (int)p.CoinType;
 
                         if (amountInPipe >= amountToGive)
                         {
-                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            numberOfCoinsToGive = amountToGive / (int)p.CoinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountToGive = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.CoinType;
                         }
                     }
 
 
-                    if (p.coinType == Coin.c20 && amountToGive > 0)
+                    if (p.CoinType == Coin.c20 && amountToGive > 0)
                     {
-                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+                        amountInPipe = p.NumberOfCoins * (int)p.CoinType;
 
                         if (amountInPipe >= amountToGive)
                         {
-                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            numberOfCoinsToGive = amountToGive / (int)p.CoinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountToGive = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.CoinType;
                         }
                     }
 
-                    if (p.coinType == Coin.c10 && amountToGive > 0)
+                    if (p.CoinType == Coin.c10 && amountToGive > 0)
                     {
-                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+                        amountInPipe = p.NumberOfCoins * (int)p.CoinType;
 
                         if (amountInPipe >= amountToGive)
                         {
-                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            numberOfCoinsToGive = amountToGive / (int)p.CoinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountToGive = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.CoinType;
                         }
                     }
 
-                    if (p.coinType == Coin.c5 && amountToGive > 0)
+                    if (p.CoinType == Coin.c5 && amountToGive > 0)
                     {
-                        amountInPipe = p.NumberOfCoins * (int)p.coinType;
+                        amountInPipe = p.NumberOfCoins * (int)p.CoinType;
 
                         if (amountInPipe >= amountToGive)
                         {
-                            numberOfCoinsToGive = amountToGive / (int)p.coinType;
+                            numberOfCoinsToGive = amountToGive / (int)p.CoinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountToGive = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.CoinType;
                         }
                     }
                 }
@@ -263,7 +266,8 @@ namespace Acceptor
 
             if (amountToGive == 0)
             {
-                display.DisplayMessage("You can now take your change. Please, come back soon!");
+                display.DisplayMessage("You can now take your product" + (rejectPipe.HasCoins() ? " and your change. " : ". ") + "Please, come back soon! \n");
+                Confirm();
                 IsPurchaseFinished = true;
             }
         }
@@ -273,11 +277,10 @@ namespace Acceptor
             int ValueInsideAllPipes = 0;
             foreach (Pipe p in pipes)
             {
-                ValueInsideAllPipes += p.NumberOfCoins * (int)p.coinType;
+                ValueInsideAllPipes += p.NumberOfCoins * (int)p.CoinType;
             }
 
             return ValueInsideAllPipes;
         }
-
     }
 }

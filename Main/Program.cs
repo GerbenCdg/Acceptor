@@ -16,10 +16,18 @@ namespace Main
 
             Selector s = new Selector(a);
 
+            a.GetState();
             s.SelectProduct(1.99f);
 
-            Coin[] coins = { Coin.e2, Coin.e2};
-            a.validator.InsertCoins(coins);
+            a.validator.InsertCoins(Coin.e2, Coin.e1);
+     
+            a.GetState();
+
+            s.SelectProduct(5.67f);
+            Coin[] coins2 = { Coin.e2, Coin.e2, Coin.e2};
+            a.validator.InsertCoins(coins2);
+
+            a.GetState();
 
             Console.ReadKey(true);
         }

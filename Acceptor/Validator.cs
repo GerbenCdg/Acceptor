@@ -19,10 +19,10 @@ namespace Acceptor
             ValidatorCoins = new List<Coin>();
         }
 
-        public void InsertCoins(Coin[] coins)
+        public void InsertCoins(params Coin[] coins)
         {
             foreach(Coin coin in coins)
-            {
+                {
                 InsertCoin(coin);
             }
         }
