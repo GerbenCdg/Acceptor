@@ -99,16 +99,16 @@ namespace Acceptor
         {
             IsPurchaseFinished = false;
             selectedProductPrice = price;
-            display.DisplayMessage("Inserted money : " + ((float)validator.getCoinsValue()) / 100 + " | price : " + ((float)selectedProductPrice) / 100);
+            display.DisplayMessage("Inserted money : " + Display.DisplayAsPrice(validator.getCoinsValue()) + " | price : " + Display.DisplayAsPrice(selectedProductPrice));
         }
 
         internal void CheckInsertedMoney()
         {
             int insertedMoney = validator.getCoinsValue();
-            
+
             if (selectedProductPrice != 0)
             {
-                display.DisplayMessage("Inserted money : " + ((float)insertedMoney) / 100 + " | price : " + ((float)selectedProductPrice) / 100);
+                display.DisplayMessage("Inserted money : " + Display.DisplayAsPrice(insertedMoney) + " | price : " + Display.DisplayAsPrice(selectedProductPrice));
 
                 if (insertedMoney >= selectedProductPrice)
                 {
@@ -137,11 +137,11 @@ namespace Acceptor
                 else
                 {
                     display.DisplayMessage("Please insert more money");
-                } 
+                }
             }
             else
             {
-                display.DisplayMessage("Inserted money : " + ((float)insertedMoney) / 100);
+                display.DisplayMessage("Inserted money : " + Display.DisplayAsPrice(insertedMoney));
             }
         }
 
@@ -190,7 +190,7 @@ namespace Acceptor
                 {
                     if (amountToGive < 5)
                     {
-                        display.DisplayMessage("We are sorry but we don't give back less than 5 centimes. You were robbed " + amountToGive + " centims.");
+                        display.DisplayMessage("We are sorry but we don't give back less than 5 cents. You were robbed " + amountToGive + " cents.");
                         amountToGive = 0;
                         break;
                     }
