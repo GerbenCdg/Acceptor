@@ -25,8 +25,8 @@ namespace Main
             a.GetState();
 
             s.SelectProduct(5.67f);
-            Coin[] coins2 = { Coin.e2, Coin.e2, Coin.e2};
-            a.validator.InsertCoins(coins2);
+            a.validator.InsertCoins(Coin.e2, Coin.e2);
+            a.GetRefund();
 
             a.GetState();
 
