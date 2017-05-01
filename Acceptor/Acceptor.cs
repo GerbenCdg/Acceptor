@@ -14,13 +14,13 @@ namespace Acceptor
         private Display display = new Display();
         private RejectPipe rejectPipe = new RejectPipe();
         private int selectedProductPrice;
+        internal bool IsPurchaseFinished { get; private set; }
 
         public Acceptor()
         {
             validator = new Validator(this);
 
             pipes = new Pipe[Enum.GetValues(typeof(Coin)).Length];
-            int i = 0;
             foreach (Coin c in Enum.GetValues(typeof(Coin)))
             {
                 if (c == Coin.e2)
@@ -75,7 +75,9 @@ namespace Acceptor
 
         internal void InsertInRejectPipe(Coin c)
         {
+            display.DisplayMessage("The coin " + c + " was rejected.");
             rejectPipe.AddCoin(c);
+            rejectPipe.GetState();
         }
 
 
@@ -93,6 +95,7 @@ namespace Acceptor
 
         internal void SelectProduct(int price)
         {
+            IsPurchaseFinished = false;
             selectedProductPrice = price;
             display.DisplayMessage("Inserted money : " + ((float)validator.getCoinsValue()) / 100 + " | price : " + ((float)selectedProductPrice) / 100);
         }
@@ -170,6 +173,13 @@ namespace Acceptor
             {
                 foreach (Pipe p in pipes)
                 {
+                    if (amountToGive < 5)
+                    {
+                        display.DisplayMessage("We are sorry but we don't give back less than 5 centimes. You were robbed " + amountToGive + " centims.");
+                        amountToGive = 0;
+                        break;
+                    }
+
                     if (p.coinType == Coin.e2)
                     {
                         amountInPipe = p.NumberOfCoins * (int)p.coinType;
@@ -248,17 +258,13 @@ namespace Acceptor
                             amountToGive = amountToGive % (int)p.coinType;
                         }
                     }
-
-                    if (amountToGive < 5)
-                    {
-                        display.DisplayMessage("We are sorry but we don't give back less than 5 centimes. You were robbed " + amountToGive + " centims.");
-                    }
                 }
             }
 
             if (amountToGive == 0)
             {
                 display.DisplayMessage("You can now take your change. Please, come back soon!");
+                IsPurchaseFinished = true;
             }
         }
 

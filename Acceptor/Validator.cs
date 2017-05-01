@@ -29,7 +29,7 @@ namespace Acceptor
 
         public void InsertCoin(Coin coin)
         {
-            if (ValidateCoin(coin))
+            if (ValidateCoin(coin) && !acceptor.IsPurchaseFinished)
             {
                 ValidatorCoins.Add(coin);
                 acceptor.CheckInsertedMoney();
