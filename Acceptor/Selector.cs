@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Acceptor
 {
-    public  class Selector
+    public class Selector
     {
         private Acceptor acceptor;
 
@@ -17,10 +17,11 @@ namespace Acceptor
 
         public void SelectProduct(float price)
         {
-            acceptor.SelectProduct( (int) price*100);
+            acceptor.SelectProduct((int)(price * 100f));
         }
 
-        public void Buy() {
+        public void Buy()
+        {
             acceptor.Confirm();
         }
     }

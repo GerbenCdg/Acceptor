@@ -16,7 +16,7 @@ namespace Main
 
             Selector s = new Selector(a);
 
-            s.SelectProduct(3);
+            s.SelectProduct(2.65f);
 
             Coin[] coins = { Coin.e2, Coin.e2};
             a.validator.InsertCoins(coins);

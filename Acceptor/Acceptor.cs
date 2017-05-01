@@ -116,7 +116,7 @@ namespace Acceptor
                     }
                     else
                     {
-                        display.DisplayMessage("I will give you " + (insertedMoney - selectedProductPrice) / 100 + " of change.");
+                        display.DisplayMessage("I will give you " + display.DisplayAsPrice(insertedMoney - selectedProductPrice) + " of change.");
                         GiveChange(insertedMoney - selectedProductPrice);
                     }
                 }
@@ -164,7 +164,6 @@ namespace Acceptor
         internal void GiveChange(int amountToGive)
         {
             int amountInPipe = 0;
-            int amountMissing = amountToGive;
             int numberOfCoinsToGive = 0;
 
             if (CanGiveChange(amountToGive))
@@ -180,11 +179,11 @@ namespace Acceptor
                             numberOfCoinsToGive = amountToGive / (int)p.coinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountMissing = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.coinType;
                         }
                     }
 
-                    if (p.coinType == Coin.e1 && amountMissing > 0)
+                    if (p.coinType == Coin.e1 && amountToGive > 0)
                     {
                         amountInPipe = p.NumberOfCoins * (int)p.coinType;
 
@@ -193,11 +192,11 @@ namespace Acceptor
                             numberOfCoinsToGive = amountToGive / (int)p.coinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountMissing = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.coinType;
                         }
                     }
 
-                    if (p.coinType == Coin.c50 && amountMissing > 0)
+                    if (p.coinType == Coin.c50 && amountToGive > 0)
                     {
                         amountInPipe = p.NumberOfCoins * (int)p.coinType;
 
@@ -206,12 +205,12 @@ namespace Acceptor
                             numberOfCoinsToGive = amountToGive / (int)p.coinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountMissing = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.coinType;
                         }
                     }
 
 
-                    if (p.coinType == Coin.c20 && amountMissing > 0)
+                    if (p.coinType == Coin.c20 && amountToGive > 0)
                     {
                         amountInPipe = p.NumberOfCoins * (int)p.coinType;
 
@@ -220,11 +219,11 @@ namespace Acceptor
                             numberOfCoinsToGive = amountToGive / (int)p.coinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountMissing = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.coinType;
                         }
                     }
 
-                    if (p.coinType == Coin.c10 && amountMissing > 0)
+                    if (p.coinType == Coin.c10 && amountToGive > 0)
                     {
                         amountInPipe = p.NumberOfCoins * (int)p.coinType;
 
@@ -233,11 +232,11 @@ namespace Acceptor
                             numberOfCoinsToGive = amountToGive / (int)p.coinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountMissing = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.coinType;
                         }
                     }
 
-                    if (p.coinType == Coin.c5 && amountMissing > 0)
+                    if (p.coinType == Coin.c5 && amountToGive > 0)
                     {
                         amountInPipe = p.NumberOfCoins * (int)p.coinType;
 
@@ -246,13 +245,13 @@ namespace Acceptor
                             numberOfCoinsToGive = amountToGive / (int)p.coinType;
                             rejectPipe.AddCoins(p.GiveCoins(numberOfCoinsToGive));
                             rejectPipe.GetState();
-                            amountMissing = amountToGive % (int)p.coinType;
+                            amountToGive = amountToGive % (int)p.coinType;
                         }
                     }
                 }
             }
 
-            if(amountMissing == 0)
+            if(amountToGive == 0)
             {
                 display.DisplayMessage("You can now take your change. Please, come back soon!");
             }
