@@ -20,14 +20,16 @@ namespace Main
            // s.SelectProduct(1.99f);
 
             a.validator.InsertCoins(Coin.e2, Coin.e1);
+            s.SelectProduct(5.67f);
 
-            a.GetState();
+            a.validator.InsertCoins(Coin.c50, Coin.c20);
 
-          //  s.SelectProduct(5.67f);
-          //  Coin[] coins2 = { Coin.e2, Coin.e2, Coin.e2 };
-          //  a.validator.InsertCoins(coins2);
 
-         //   a.GetState();
+            a.GetRefund();
+            //  Coin[] coins2 = { Coin.e2, Coin.e2, Coin.e2 };
+            //  a.validator.InsertCoins(coins2);
+
+            //   a.GetState();
 
             Console.ReadKey(true);
         }

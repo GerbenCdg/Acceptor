@@ -148,6 +148,8 @@ namespace Acceptor
 
         public void GetRefund() // remboursement : l'achat est annulé
         {
+            display.DisplayMessage("You've chosen to get refunded.");
+
             rejectPipe.AddCoins(validator.ValidatorCoins.ToArray<Coin>());
             validator.ValidatorCoins.Clear();
             rejectPipe.GetState();
