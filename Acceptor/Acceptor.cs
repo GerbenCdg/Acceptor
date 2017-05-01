@@ -248,10 +248,15 @@ namespace Acceptor
                             amountToGive = amountToGive % (int)p.coinType;
                         }
                     }
+
+                    if (amountToGive < 5)
+                    {
+                        display.DisplayMessage("We are sorry but we don't give back less than 5 centimes. You were robbed " + amountToGive + " centims.");
+                    }
                 }
             }
 
-            if(amountToGive == 0)
+            if (amountToGive == 0)
             {
                 display.DisplayMessage("You can now take your change. Please, come back soon!");
             }
