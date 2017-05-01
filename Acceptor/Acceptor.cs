@@ -142,8 +142,10 @@ namespace Acceptor
         {
             rejectPipe.AddCoins(validator.ValidatorCoins.ToArray<Coin>());
             validator.ValidatorCoins.Clear();
+            rejectPipe.GetState();
+            rejectPipe.WithDrawCoins();
 
-            display.DisplayMessage("Thank you, Enjoy !");
+            display.DisplayMessage("Thank you! Good Bye! ");
         }
 
         public void Confirm() // effectue l'achat 
