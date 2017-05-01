@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Main
 {
     class Remboursement
-    {
+    {/*
         static void Main(string[] args)
         {
 
@@ -34,6 +34,6 @@ namespace Main
             //   a.GetState();
 
             Console.ReadKey(true);
-        }
+        }*/
     }
 }
