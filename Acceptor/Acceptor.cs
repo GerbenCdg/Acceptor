@@ -99,7 +99,7 @@ namespace Acceptor
         {
             IsPurchaseFinished = false;
             selectedProductPrice = price;
-            display.DisplayMessage("Inserted money : " + Display.DisplayAsPrice(validator.getCoinsValue()) + " | price : " + Display.DisplayAsPrice(selectedProductPrice));
+            CheckInsertedMoney();
         }
 
         internal void CheckInsertedMoney()
