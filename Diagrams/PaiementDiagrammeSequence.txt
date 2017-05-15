@@ -1,0 +1,108 @@
+==== 4. Proposez un diagramme de paiement ====
+
+<align center>
+<uml>
+title paiement
+hide footbox
+actor bob
+
+bob -> "selector:Selector"
+    activate "selector:Selector"
+        "selector:Selector" -> "acceptor:Acceptor" : SelectProduct(float price)<<note>>Message envoyé par le selecteur.
+            activate "acceptor:Acceptor"
+            "acceptor:Acceptor" -> "acceptor:Acceptor" : CheckInsertedMoney()
+                "acceptor:Acceptor" -> "validator:Validator" : getCoinsValue() <<note>>Retourne la valeur des pieces\nqui se trouvent dans le validateur.
+                activate "validator:Validator"
+                        "validator:Validator" --> "acceptor:Acceptor" : totalValue:int
+                deactivate "validator:Validator"
+            
+                alt selectedProductPrice!=0
+                        "acceptor:Acceptor" -> "display:Display" : DisplayMessage("Inserted money : " + insertedMoney + " | price : " + selectedProductPrice)
+                        activate "display:Display"
+                        "display:Display" --> "acceptor:Acceptor"
+                        deactivate "display:Display"
+                    
+                        alt insertedMoney>=selectedProductPrice
+                          "acceptor:Acceptor" -> "display:Display" : DisplayMessage("You inserted enough money to buy this item.")
+                          activate "display:Display"
+                          "display:Display" --> "acceptor:Acceptor"
+                          deactivate "display:Display"
+                      
+                            alt insertedMoney>selectedProductPrice
+                                alt !CanGiveChange(insertedMoney - selectedProductPrice)
+                                    "acceptor:Acceptor" -> "acceptor:Acceptor" : CanGiveChange() <<note>>Fonction qui vérifie si l'on peut ou pas rendre la monnaie.
+                                    "acceptor:Acceptor" -> "acceptor:Acceptor" : GetValueInsidePipes() <<note>>Fonction qui retourne la valeur des monnaies dans les tubes.
+                                    "acceptor:Acceptor" -> "acceptor:Acceptor" : ValueInsideAllPipes:int
+                                    "acceptor:Acceptor" --> "acceptor:Acceptor" : CanGiveChange() : bool
+                                    "acceptor:Acceptor" -> "display:Display" : DisplayMessage("I can't give you the change for this item.\n You can choose to get refunded or select another product")
+                                    activate "display:Display"
+                                    "display:Display" --> "acceptor:Acceptor"
+                                    deactivate "display:Display"
+                                else else
+                            
+                                    "acceptor:Acceptor" -> "display:Display" : DisplayMessage("I will give you" + (insertedMoney-selectedProductPrice))
+                                    activate "display:Display"
+                                    "display:Display" --> "acceptor:Acceptor"
+                                    deactivate "display:Display"
+                                
+                                    "acceptor:Acceptor" -> "acceptor:Acceptor" : GiveChange(insertedMoney - selectedProductPrice)
+                                        alt amountToGive==0
+                                            "acceptor:Acceptor" -> "display:Display" : DisplayMessage("You can now take your product" + (rejectPipe.HasCoins() ? " and your change. " : ". ") + "Please, come back soon! \n")
+                                            activate "display:Display"
+                                            "display:Display" --> "acceptor:Acceptor"
+                                            deactivate "display:Display"
+                                        
+                                            "acceptor:Acceptor" -> "acceptor:Acceptor" : Confirm()
+                                        
+                                        end
+                                    
+                                
+                                end
+                            
+                            else else
+                                "acceptor:Acceptor" -> "display:Display" : 
+                                "acceptor:Acceptor" -> "display:Display" : DisplayMessage("There's no change to be given. Please take the product.")
+                                activate "display:Display"
+                                "display:Display" --> "acceptor:Acceptor"
+                                deactivate "display:Display"
+                            end
+                        else else
+                          "acceptor:Acceptor" -> "display:Display" : DisplayMessage("Please, insert more money")
+                          activate "display:Display"
+                          "display:Display" --> "acceptor:Acceptor"
+                          deactivate "display:Display"
+                        end
+                end
+        "acceptor:Acceptor" --> "selector:Selector"
+        deactivate "acceptor:Acceptor"
+    "selector:Selector" --> bob
+deactivate "selector:Selector"
+
+bob -> "acceptor:Acceptor"
+    activate "acceptor:Acceptor"
+        "acceptor:Acceptor" -> "validator:Validator" : InsertCoins(Coin.e2)
+            activate "validator:Validator"
+                loop Coin coin in coins
+                    "validator:Validator" -> "validator:Validator" : InsertCoin(coin)
+                        alt ValidateCoin(coin)&&!acceptor.IsPurchaseFinished
+                            "validator:Validator" -> "validator:Validator" : ValidatorCoins.Add(coin)
+
+                            "validator:Validator" -> "acceptor:Acceptor" : CheckInsertedMoney()
+                            "acceptor:Acceptor" --> "validator:Validator"
+
+                        else else
+
+                            "validator:Validator" -> "acceptor:Acceptor" : InsertInRejectPipe(coin)
+                            "acceptor:Acceptor" --> "validator:Validator"
+
+
+                        end
+                end
+            
+            "validator:Validator" --> "acceptor:Acceptor"
+            deactivate "validator:Validator"
+    "acceptor:Acceptor" --> bob
+deactivate "acceptor:Acceptor"
+
+</uml>
+</align>
